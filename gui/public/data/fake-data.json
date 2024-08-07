@@ -1,0 +1,22 @@
+{
+ "possessions": [
+   {
+     "id": "1",
+     "possesseur": {"nom":  "John Doe"},
+     "libelle": "Rolex",
+     "valeur": 5000,
+     "dateDebut": "2020-01-01",
+     "dateFin": "2030-01-01",
+     "tauxAmortissement": -1
+   },
+   {
+     "id": "2",
+     "possesseur": {"nom":  "John Doe"},
+     "libelle": "iPhone",
+     "valeur": 1000,
+     "dateDebut": "2020-01-01",
+     "dateFin": "2030-01-01",
+     "tauxAmortissement": 1
+   }
+ ]
+}
