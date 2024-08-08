@@ -1,11 +1,12 @@
-import {useEffect, useState} from 'react'
 import './App.css'
 // boostrap
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Tableau from "./components/Tableau.jsx";
 import PatrimoineCalc from "./components/PatrimoineCalc.jsx";
 import {readJsonFile} from "../services/data.js";
 import {getPossessions} from "../services/possessions.js";
+import {useState} from "react";
 
 
 function App() {

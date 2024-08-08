@@ -23,7 +23,7 @@ export default function PatrimoineCalc (props) {
         setSelectedDate(event.target.value);
     }
 
-    const buttonClick = (event) => {
+    const buttonClick = () => {
         setDateValue(new Date(selectedDate));
     }
 
