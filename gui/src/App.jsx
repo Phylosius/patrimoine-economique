@@ -24,7 +24,7 @@ function App() {
             myData ?
                 <>
                     <Tableau tHeader={["libelle", "valeur", "dateDebut", "dateFin", "tauxAmortissement", "valeurActuel"]} tBody={getPossessions(myData.possessions)}/>
-                    <PatrimoineCalc />
+                    <PatrimoineCalc possessions={getPossessions(myData.possessions)} />
                 </>
                 : "loading..."
         }
