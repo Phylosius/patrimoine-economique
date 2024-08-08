@@ -1,6 +1,7 @@
 import Patrimoine from "../../../models/Patrimoine.js";
 import {useEffect, useState} from "react";
 import Personne from "../../../models/Personne.js";
+import {Button} from "react-bootstrap";
 
 export default function PatrimoineCalc (props) {
 
@@ -30,20 +31,29 @@ export default function PatrimoineCalc (props) {
         setIsRounded(!isRounded);
     }
 
-
     return (
         <>
-            <div>
-                <h1>Evaluer valeur de patrimoine</h1>
-                <input type={"date"} placeholder={"Date"} onChange={inputOnChange} value={selectedDate}/>
-                <button type="submit" onClick={buttonClick}>eval</button>
-            </div>
-            <div>
-                <input type="checkbox" name="isRounded" id="isRounded" onChange={checkOnChange}/><
-                label htmlFor="isRounded">arrondir</label>
-            </div>
-            <div>
-                valeur du patrimoine selon la date: {patrimoineValue}
+            <div className={"container"}>
+                <div className={"d-flex"}>
+                    {/*<h1>Evaluer valeur de patrimoine</h1>*/}
+                    <input className={"form-control"} type={"date"} placeholder={"Date d'ammortissement"} onChange={inputOnChange} value={selectedDate}/>
+                    <Button type="submit" onClick={buttonClick}>eval</Button>
+                </div>
+                <div className={"d-flex flex-row justify-content-between"}>
+                    <div className={"d-flex"}>
+                        <input className={"form-check-input"} type="checkbox" name="isRounded" id="isRounded"
+                               onChange={checkOnChange}/>
+                        <label className={"form-check-label"} htmlFor="isRounded">arrondir</label>
+                    </div>
+                    <div className={"d-flex"}>
+                        valeur du patrimoine selon la date:
+                        <span
+                            className={
+                                patrimoineValue === 0 ? "text-primary":
+                                patrimoineValue > 0 ? "text-success" : "text-danger"
+                        }>{patrimoineValue}</span>
+                    </div>
+                </div>
             </div>
         </>
     )

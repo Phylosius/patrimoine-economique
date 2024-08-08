@@ -10,8 +10,8 @@ import { Table } from 'react-bootstrap';
 function Tableau(props) {
     return (
         <div className="container">
-            <h1>{props.tabTitle ? props.tabTitle : "Patrimoine"} </h1>
-            <Table striped bordered hover>
+            {/*<h4>{props.tabTitle ? props.tabTitle : "Patrimoine"} </h4>*/}
+            <Table bordered hover>
                 <thead>
                 <tr>
                     {props.tHeader.map((header) => (

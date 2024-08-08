@@ -23,8 +23,12 @@ function App() {
         {
             myData ?
                 <>
-                    <Tableau tHeader={["libelle", "valeur", "dateDebut", "dateFin", "tauxAmortissement", "valeurActuel"]} tBody={getPossessions(myData.possessions)}/>
-                    <PatrimoineCalc possessions={getPossessions(myData.possessions)} />
+                    <h4 className={""}>Possessions et Patrimoine</h4>
+
+                    <Tableau
+                        tHeader={["Libelle", "Valeur", "Date debut", "Date fin", "taux d'amortissement", "valeur actuel"]}
+                        tBody={getPossessions(myData.possessions)}/>
+                    <PatrimoineCalc possessions={getPossessions(myData.possessions)}/>
                 </>
                 : "loading..."
         }
