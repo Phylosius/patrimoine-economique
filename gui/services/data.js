@@ -1,4 +1,3 @@
-import fs from 'fs';
 
 export async function readJsonFile(filePath) {
     try {
