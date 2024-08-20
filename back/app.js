@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 // Import des routes
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
+import possessionRouter from "./routes/possession.js";
 
 // Déterminer le répertoire actuel
 const __filename = fileURLToPath(import.meta.url);
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/possession', possessionRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
