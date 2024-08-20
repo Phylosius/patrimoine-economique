@@ -5,3 +5,6 @@ node_modules
 
 /**/*.http
 /**/**/*.http
+
+/**/*.private.env.json
+/**/**/*.private.env.json
