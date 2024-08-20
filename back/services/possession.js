@@ -171,4 +171,4 @@ async function deletePossession(possession) {
     }
 }
 
-export { getPossessionList, savePossession, updatePossession, deletePossession };
+export { getPossessionList, savePossession, updatePossession, deletePossession, createPossession };
