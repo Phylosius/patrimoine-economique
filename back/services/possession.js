@@ -49,7 +49,7 @@ function convertPossessionToJSON(possession) {
  * @return {Promise<Possession[]>} Liste de Possession
  */
 async function getPossessionList() {
-    const { status, data, error } = await readFile('./data/possessions.json');
+    const { status, data, error } = await readFile(dataPath);
     if (status === 'ERROR') {
         throw new Error(`Failed to read file: ${error}`);
     }
@@ -92,7 +92,7 @@ async function getPossessionList() {
                 );
                 break;
             default:
-                throw new Error(`Unknown model: ${model}`);
+                // throw new Error(`Unknown model: ${model}`);
         }
 
         return possession;
