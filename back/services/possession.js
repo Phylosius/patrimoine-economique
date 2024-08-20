@@ -7,6 +7,7 @@ import Patrimoine from '../../models/Patrimoine.js';
 import Personne from '../../models/Personne.js';
 
 const dataPath = "public/data/data.json"
+const defautPossesseur = new Personne("Anonymous")
 
 /**
  * Convertit une instance de Possession en un objet JSON.
@@ -141,6 +142,12 @@ async function updatePossession(possession) {
     if (writeStatus === 'ERROR') {
         throw new Error(`Failed to write file: ${writeError}`);
     }
+}
+
+async function createPossession(libelle, valeur, dateDebut, taux) {
+    const cache = new Possession(defautPossesseur, libelle, valeur, new Date(dateDebut), null, taux);
+    await savePossession(cache)
+    return cache;
 }
 
 /**
