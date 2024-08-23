@@ -49,7 +49,7 @@ function convertPossessionToJSON(possession) {
  * Retourne une liste de toutes les possessions.
  * @return {Promise<Possession[]>} Liste de Possession
  */
-async function getPossessionList() {
+async function getPossessionsList() {
     const { status, data, error } = await readFile(dataPath);
     if (status === 'ERROR') {
         throw new Error(`Failed to read file: ${error}`);
@@ -211,4 +211,4 @@ async function deletePossession(possession) {
     }
 }
 
-export { getPossessionList, savePossession, updatePossession, deletePossession, createPossession, getPossessionsJson };
+export { getPossessionsList, savePossession, updatePossession, deletePossession, createPossession, getPossessionsJson };
