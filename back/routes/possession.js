@@ -5,6 +5,7 @@ import Personne from "../../models/Personne.js";
 import Flux from "../../models/possessions/Flux.js";
 import Argent from "../../models/possessions/Argent.js";
 import BienMateriel from "../../models/possessions/BienMateriel.js";
+import {updatePossessionByRequest} from "../controllers/possession.js";
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -26,51 +27,11 @@ router.post('/', (req, res) => {
 })
 
 router.post('/:libelle', (req, res) => {
-    const cibleLibelle = req.params.libelle;
-    if (cibleLibelle) {
+    updatePossessionByRequest(req, res);
+})
 
-        if (!req.params.model) {
-            updatePossession(cibleLibelle, new Possession(req.body.possesseur, req.body.libelle, req.body.valeur, req.body.dateDebut, req.body.dateFin, req.body.tauxAmortissement))
-                .then(() => {res.sendStatus(200);})
-        } else {
-            if (req.params.model === "Flux") {
-                updatePossession(cibleLibelle, new Flux(
-                    new Personne(req.body.possesseur.name),
-                    req.body.libelle,
-                    req.body.valeur,
-                    req.body.dateDebut,
-                    req.body.dateFin,
-                    req.body.tauxAmortissement,
-                    req.body.jour
-                )).then(() => {res.sendStatus(200);})
-            } else if (req.params.model === "Argent") {
-                updatePossession(cibleLibelle, new Argent(
-                    new Personne(req.body.possesseur.name),
-                    req.body.libelle,
-                    req.body.valeur,
-                    req.body.dateDebut,
-                    req.body.dateFin,
-                    req.body.tauxAmortissement,
-                    req.body.type
-                )).then(() => {res.sendStatus(200);})
-            } else if (req.params.model === "BienMateriel") {
-                updatePossession(cibleLibelle, new BienMateriel(
-                    new Personne(req.body.possesseur.name),
-                    req.body.libelle,
-                    req.body.valeur,
-                    req.body.dateDebut,
-                    req.body.dateFin,
-                    req.body.tauxAmortissement
-                )).then(() => {res.sendStatus(200);})
-            }
-        }
+router.post('/:libelle/close', (req, res) => {
 
-    } else {
-        res.sendStatus(400)
-    }
-
-
-    console.log(req.body.libelle)
 })
 
 export default router;
