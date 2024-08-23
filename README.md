@@ -9,7 +9,7 @@
     - /possession: Get Possession list (done)
     - /possession: Create Possession: [libelle, valeur, dateDebut, taux] (done)
     - /possession/:libelle: Update Possession by libelle: [libelle, dateFin] (done)
-    - /possession/:libelle/close: Close Possession => set dateFin to current Date
+    - /possession/:libelle/close: Close Possession => set dateFin to current Date (done)
     - /patrimoine/:date: Get Valeur Patrimoine: [Date] => Valeur
     - /patrimoine/range:
       {
