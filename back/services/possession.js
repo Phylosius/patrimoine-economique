@@ -114,6 +114,8 @@ async function getPossessionsList() {
 
 /**
  * Retourne une possession
+ * @param {string} libelle libelle de la possession
+ * @return {Promise<Possession>}
  * */
 async function getPossession(libelle){
     const data = await getPossessionsJson();

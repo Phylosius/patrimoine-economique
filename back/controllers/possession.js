@@ -53,7 +53,15 @@ export function updatePossessionByRequest(req,res){
 export function closePossession(req,res){
     if (req.params.libelle !== "") {
         getPossession(req.params.libelle)
-            .then(savePossession)
-            .then(() => {res.sendStatus(200)});
+            .then((p) => {
+                return new Promise((resolve,) => {
+                    p.dateFin = new Date()
+                    updatePossession(p.libelle, p)
+                        .then(()=>{resolve("success")})
+                })
+            })
+            .then((m) => {
+                res.json({"message": m})
+            });
     }
 }

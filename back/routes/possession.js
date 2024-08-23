@@ -5,7 +5,7 @@ import Personne from "../../models/Personne.js";
 import Flux from "../../models/possessions/Flux.js";
 import Argent from "../../models/possessions/Argent.js";
 import BienMateriel from "../../models/possessions/BienMateriel.js";
-import {updatePossessionByRequest} from "../controllers/possession.js";
+import {updatePossessionByRequest, closePossession} from "../controllers/possession.js";
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -31,7 +31,7 @@ router.post('/:libelle', (req, res) => {
 })
 
 router.post('/:libelle/close', (req, res) => {
-
+    closePossession(req, res);
 })
 
 export default router;
