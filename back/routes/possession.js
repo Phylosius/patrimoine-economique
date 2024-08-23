@@ -22,11 +22,17 @@ router.post('/', (req, res) => {
 
 router.post('/:libelle', (req, res) => {
     const cibleLibelle = req.params.libelle;
-    updatePossession(cibleLibelle, new Possession(req.body.possesseur, req.body.libelle, req.body.valeur, req.body.dateDebut, req.body.dateFin, req.body.tauxAmortissement))
-        .then(() => {
-            res.sendStatus(200);
+    if (cibleLibelle) {
+
+        if (!req.params.model) {
+            updatePossession(cibleLibelle, new Possession(req.body.possesseur, req.body.libelle, req.body.valeur, req.body.dateDebut, req.body.dateFin, req.body.tauxAmortissement))
+                .then(() => {res.sendStatus(200);})
         }
-    )
+
+    } else {
+        res.sendStatus(400)
+    }
+
 
     console.log(req.body.libelle)
 })
