@@ -1,3 +1,4 @@
+import Personne from "../Personne.js";
 
 /**
  * Class representant une Possession
@@ -11,7 +12,7 @@ export default class Possession {
    * @param dateFin {Date} Date de cloture de la possession
    * @param tauxAmortissement {int} Taux d'ammortissement de la possession
    * */
-  constructor(possesseur, libelle, valeur, dateDebut, dateFin, tauxAmortissement) {
+  constructor(possesseur = new Personne("Anonymous"), libelle = "Possession"+ (new Date()).getDate(), valeur = 0, dateDebut = new Date(), dateFin = new Date(), tauxAmortissement = 0) {
     this.possesseur = possesseur;
     this.libelle = libelle;
     this.valeur = valeur;
