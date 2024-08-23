@@ -1,111 +1,14 @@
 [
     {
-        "model": "Personne",
-        "data": {
-            "nom": "John Doe"
-        }
-    },
-    {
-        "model": "Patrimoine",
-        "data": {
-            "possesseur": {
-                "nom": "John Doe"
-            },
-            "possessions": [
-                {
-                    "possesseur": {
-                        "nom": "John Doe"
-                    },
-                    "libelle": "MacBook Pro",
-                    "valeur": 4000000,
-                    "dateDebut": "2023-12-25T00:00:00.000Z",
-                    "dateFin": null,
-                    "tauxAmortissement": 5
-                },
-                {
-                    "possesseur": {
-                        "nom": "John Doe"
-                    },
-                    "libelle": "Alternance",
-                    "valeur": 0,
-                    "dateDebut": "2022-12-31T21:00:00.000Z",
-                    "dateFin": null,
-                    "tauxAmortissement": null,
-                    "jour": 1,
-                    "valeurConstante": 500000
-                },
-                {
-                    "possesseur": {
-                        "nom": "John Doe"
-                    },
-                    "libelle": "Survie",
-                    "valeur": 0,
-                    "dateDebut": "2022-12-31T21:00:00.000Z",
-                    "dateFin": null,
-                    "tauxAmortissement": null,
-                    "jour": 2,
-                    "valeurConstante": -300000
-                },
-                {
-                    "possesseur": {
-                        "nom": "John Doe"
-                    },
-                    "libelle": "MacBook Pro",
-                    "valeur": 4000000,
-                    "dateDebut": "2023-12-25T00:00:00.000Z",
-                    "dateFin": null,
-                    "tauxAmortissement": 5
-                },
-                {
-                    "possesseur": {
-                        "nom": "John Doe"
-                    },
-                    "libelle": "Alternance",
-                    "valeur": 0,
-                    "dateDebut": "2022-12-31T21:00:00.000Z",
-                    "dateFin": null,
-                    "tauxAmortissement": null,
-                    "jour": 1,
-                    "valeurConstante": 500000
-                },
-                {
-                    "possesseur": {
-                        "nom": "John Doe"
-                    },
-                    "libelle": "Survie",
-                    "valeur": 0,
-                    "dateDebut": "2022-12-31T21:00:00.000Z",
-                    "dateFin": null,
-                    "tauxAmortissement": null,
-                    "jour": 2,
-                    "valeurConstante": -300000
-                }
-            ]
-        }
-    },
-    {
         "model": "Possession",
         "data": {
             "possesseur": {
                 "nom": "John Doe"
             },
-            "libelle": "phone de John",
-            "valeur": 1000,
-            "dateDebut": "2024-08-20T13:09:50.695Z",
-            "dateFin": null,
-            "tauxAmortissement": 1
-        }
-    },
-    {
-        "model": "Possession",
-        "data": {
-            "possesseur": {
-                "nom": "John Doe"
-            },
-            "libelle": "phone de John",
-            "valeur": 1000,
-            "dateDebut": "2024-08-20T13:26:39.193Z",
-            "dateFin": null,
+            "libelle": "phone_of_john",
+            "valeur": 0,
+            "dateDebut": "2024-08-23T11:13:29.550Z",
+            "dateFin": "2024-08-23T11:09:29.302Z",
             "tauxAmortissement": 1
         }
     },
@@ -118,10 +21,10 @@
             "libelle": "salaire",
             "valeur": 0,
             "dateDebut": "2024-08-20T14:00:22.994Z",
-            "dateFin": null,
+            "dateFin": "2024-08-23T14:34:56.332Z",
             "tauxAmortissement": 0,
             "jour": 30,
-            "valeurConstante": 500
+            "valeurConstante": 0
         }
     }
 ]
