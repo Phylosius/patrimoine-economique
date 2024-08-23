@@ -92,12 +92,29 @@ async function getPossessionList() {
                     possessionData.tauxAmortissement
                 );
                 break;
+            case 'Possession':
+                possession = new Possession(
+                    new Personne(possessionData.possesseur.nom),
+                    possessionData.libelle,
+                    possessionData.valeur,
+                    new Date(possessionData.dateDebut),
+                    possessionData.dateFin ? new Date(possessionData.dateFin) : null,
+                    possessionData.tauxAmortissement
+                );
+                break;
             default:
                 // throw new Error(`Unknown model: ${model}`);
         }
 
         return possession;
     });
+}
+
+/**
+ * Retourne le json des possessions
+ * */
+async function getPossessionsJson() {
+    return readFile(dataPath);
 }
 
 /**
@@ -194,4 +211,4 @@ async function deletePossession(possession) {
     }
 }
 
-export { getPossessionList, savePossession, updatePossession, deletePossession, createPossession };
+export { getPossessionList, savePossession, updatePossession, deletePossession, createPossession, getPossessionsJson };

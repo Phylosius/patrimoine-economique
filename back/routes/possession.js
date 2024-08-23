@@ -1,5 +1,5 @@
 import express from 'express';
-import {createPossession, getPossessionList, updatePossession} from "../services/possession.js";
+import {createPossession, getPossessionList, getPossessionsJson, updatePossession} from "../services/possession.js";
 import Possession from "../../models/possessions/Possession.js";
 import Personne from "../../models/Personne.js";
 import Flux from "../../models/possessions/Flux.js";
@@ -8,7 +8,7 @@ import BienMateriel from "../../models/possessions/BienMateriel.js";
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    getPossessionList().then((possessionList) => {
+    getPossessionsJson().then((possessionList) => {
         res.send(possessionList);
     })
 })
@@ -52,7 +52,6 @@ router.post('/:libelle', (req, res) => {
                     req.body.tauxAmortissement,
                     req.body.type
                 )).then(r => {res.sendStatus(200);})
-
             } else if (req.params.model === "BienMateriel") {
                 updatePossession(cibleLibelle, new BienMateriel(
                     new Personne(req.body.possesseur.name),
