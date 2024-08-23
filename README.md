@@ -3,7 +3,7 @@
 ## TODO: Avant 30/08/2024 08:00 GMT+3
 - Backend (NodeJS/Express)
 
-  Create folder ``backend`` in the root [!pending]
+  Create folder ``backend`` in the root (done)
 
   Endpoints:
     - /possession: Get Possession list (done)
