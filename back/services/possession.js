@@ -134,7 +134,10 @@ async function updatePossession(cibleLibelle, possession) {
 
     const updatedData = data.map((item) => {
         if (item.data.libelle === cibleLibelle) {
-            return {
+
+            const model = possession.constructor.model;
+
+            let jresult = {
                 model: possession.constructor.name,
                 data: {
                     possesseur: !possession.possesseur ? item.data.possesseur : {
@@ -144,9 +147,19 @@ async function updatePossession(cibleLibelle, possession) {
                     valeur: possession.valeur != null ? possession.valeur : item.data.valeur,
                     dateDebut: possession.dateDebut ? possession.dateDebut.toISOString() : item.data.dateDebut,
                     dateFin: possession.dateFin ? possession.dateFin.toISOString() : item.data.dateFin,
-                    tauxAmortissement: possession.tauxAmortissement != null ? possession.tauxAmortissement : item.data.tauxAmortissement
+                    tauxAmortissement: possession.tauxAmortissement != null ? possession.tauxAmortissement : item.data.tauxAmortissement,
+
                 }
             }
+
+            if (model === "Flux") {
+                jresult.data.jour = possession.jour
+                jresult.data.valeurConstante = possession.valeurConstante
+            } else if (model === "Argent") {
+                jresult.data.type = possession.type
+            }
+
+            return jresult
         }
         return item;
     });
