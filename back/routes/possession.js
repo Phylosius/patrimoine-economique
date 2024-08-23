@@ -1,5 +1,5 @@
 import express from 'express';
-import {createPossession, getPossessionList, getPossessionsJson, updatePossession} from "../services/possession.js";
+import {createPossession, getPossessionsJson, updatePossession} from "../services/possession.js";
 import Possession from "../../models/possessions/Possession.js";
 import Personne from "../../models/Personne.js";
 import Flux from "../../models/possessions/Flux.js";
@@ -41,7 +41,7 @@ router.post('/:libelle', (req, res) => {
                     req.body.dateFin,
                     req.body.tauxAmortissement,
                     req.body.jour
-                )).then(r => {res.sendStatus(200);})
+                )).then(() => {res.sendStatus(200);})
             } else if (req.params.model === "Argent") {
                 updatePossession(cibleLibelle, new Argent(
                     new Personne(req.body.possesseur.name),
@@ -51,7 +51,7 @@ router.post('/:libelle', (req, res) => {
                     req.body.dateFin,
                     req.body.tauxAmortissement,
                     req.body.type
-                )).then(r => {res.sendStatus(200);})
+                )).then(() => {res.sendStatus(200);})
             } else if (req.params.model === "BienMateriel") {
                 updatePossession(cibleLibelle, new BienMateriel(
                     new Personne(req.body.possesseur.name),
@@ -60,7 +60,7 @@ router.post('/:libelle', (req, res) => {
                     req.body.dateDebut,
                     req.body.dateFin,
                     req.body.tauxAmortissement
-                )).then(r => {res.sendStatus(200);})
+                )).then(() => {res.sendStatus(200);})
             }
         }
 
