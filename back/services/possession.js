@@ -111,10 +111,21 @@ async function getPossessionsList() {
 }
 
 /**
+ * Retourne une possession
+ * */
+async function getPossession(libelle){
+
+}
+
+/**
  * Retourne le json des possessions
  * */
 async function getPossessionsJson() {
-    return readFile(dataPath);
+    const { status, data, error } = await readFile(dataPath);
+    if (status === 'ERROR') {
+        throw new Error(`Failed to read file: ${error}`);
+    }
+    return data;
 }
 
 /**
