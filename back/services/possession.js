@@ -133,7 +133,23 @@ async function updatePossession(possession) {
 
     const updatedData = data.map((item) => {
         if (item.model === possession.constructor.name && item.data.libelle === possession.libelle) {
-            return convertPossessionToJSON(possession);
+            const cachePossession = new Possession(
+                defautPossesseur,
+                item.data.libelle,
+                item.data.valeur,
+                new Date(item.data.dateDebut),
+                new Date(item.data.dateFin),
+                item.data.tauxAmortissement
+            )
+
+            cachePossession.possesseur = possession.possesseur | cachePossession.possesseur
+            cachePossession.libelle = possession.libelle | cachePossession.libelle
+            cachePossession.valeur = possession.valeur | cachePossession.valeur
+            cachePossession.tauxAmortissement = possession.tauxAmortissement | cachePossession.tauxAmortissement
+            cachePossession.dateDebut = possession.dateDebut | cachePossession.dateDebut
+            cachePossession.dateFin = possession.dateFin | cachePossession.dateFin
+
+            return convertPossessionToJSON(cachePossession);
         }
         return item;
     });
