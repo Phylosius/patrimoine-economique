@@ -45,6 +45,60 @@ function convertPossessionToJSON(possession) {
     return json;
 }
 
+function convertJSONToPossession(possessionJSON){
+    const {model, data: possessionData} = possessionJSON;
+
+    let possession;
+    switch (model) {
+        case 'Argent':
+            possession = new Argent(
+                new Personne(possessionData.possesseur.nom),
+                possessionData.libelle,
+                possessionData.valeur,
+                new Date(possessionData.dateDebut),
+                possessionData.dateFin ? new Date(possessionData.dateFin) : null,
+                possessionData.tauxAmortissement,
+                possessionData.type
+            );
+            break;
+        case 'Flux':
+            possession = new Flux(
+                new Personne(possessionData.possesseur.nom),
+                possessionData.libelle,
+                possessionData.valeur,
+                new Date(possessionData.dateDebut),
+                possessionData.dateFin ? new Date(possessionData.dateFin) : null,
+                possessionData.tauxAmortissement,
+                possessionData.jour
+            );
+            break;
+        case 'BienMateriel':
+            possession = new BienMateriel(
+                new Personne(possessionData.possesseur.nom),
+                possessionData.libelle,
+                possessionData.valeur,
+                new Date(possessionData.dateDebut),
+                possessionData.dateFin ? new Date(possessionData.dateFin) : null,
+                possessionData.tauxAmortissement
+            );
+            break;
+        case 'Possession':
+            possession = new Possession(
+                new Personne(possessionData.possesseur.nom),
+                possessionData.libelle,
+                possessionData.valeur,
+                new Date(possessionData.dateDebut),
+                possessionData.dateFin ? new Date(possessionData.dateFin) : null,
+                possessionData.tauxAmortissement
+            );
+            break;
+        default:
+            throw new Error(`Unknown model: ${model}`);
+    }
+
+    return possession;
+}
+
 /**
  * Retourne une liste de toutes les possessions.
  * @return {Promise<Possession[]>} Liste de Possession
@@ -55,66 +109,18 @@ async function getPossessionsList() {
         throw new Error(`Failed to read file: ${error}`);
     }
 
-    return data.map((item) => {
-        const { model, data: possessionData } = item;
-        let possession;
-
-        switch (model) {
-            case 'Argent':
-                possession = new Argent(
-                    new Personne(possessionData.possesseur.nom),
-                    possessionData.libelle,
-                    possessionData.valeur,
-                    new Date(possessionData.dateDebut),
-                    possessionData.dateFin ? new Date(possessionData.dateFin) : null,
-                    possessionData.tauxAmortissement,
-                    possessionData.type
-                );
-                break;
-            case 'Flux':
-                possession = new Flux(
-                    new Personne(possessionData.possesseur.nom),
-                    possessionData.libelle,
-                    possessionData.valeur,
-                    new Date(possessionData.dateDebut),
-                    possessionData.dateFin ? new Date(possessionData.dateFin) : null,
-                    possessionData.tauxAmortissement,
-                    possessionData.jour
-                );
-                break;
-            case 'BienMateriel':
-                possession = new BienMateriel(
-                    new Personne(possessionData.possesseur.nom),
-                    possessionData.libelle,
-                    possessionData.valeur,
-                    new Date(possessionData.dateDebut),
-                    possessionData.dateFin ? new Date(possessionData.dateFin) : null,
-                    possessionData.tauxAmortissement
-                );
-                break;
-            case 'Possession':
-                possession = new Possession(
-                    new Personne(possessionData.possesseur.nom),
-                    possessionData.libelle,
-                    possessionData.valeur,
-                    new Date(possessionData.dateDebut),
-                    possessionData.dateFin ? new Date(possessionData.dateFin) : null,
-                    possessionData.tauxAmortissement
-                );
-                break;
-            default:
-                // throw new Error(`Unknown model: ${model}`);
-        }
-
-        return possession;
-    });
+    return data.map((item) => convertJSONToPossession(item));
 }
 
 /**
  * Retourne une possession
  * */
 async function getPossession(libelle){
+    const data = await getPossessionsJson();
+    const possession = data.filter(possession => possession.data.libelle === libelle)[0];
 
+    // console.log(possession)
+    return possession ? convertJSONToPossession(possession) : null;
 }
 
 /**
@@ -222,4 +228,4 @@ async function deletePossession(possession) {
     }
 }
 
-export { getPossessionsList, savePossession, updatePossession, deletePossession, createPossession, getPossessionsJson };
+export { getPossessionsList, savePossession, updatePossession, deletePossession, createPossession, getPossessionsJson, getPossession };
