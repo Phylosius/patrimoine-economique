@@ -42,3 +42,7 @@
         - Inputs: Libelle, Valeur, date début, taux
     - Update Possession: (/possession/:libelle/update)
         - Inputs: Libelle, date fin
+
+## Todo perso
+
+- [ ] corriger les verbes http
