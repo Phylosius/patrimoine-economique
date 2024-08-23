@@ -6,8 +6,8 @@
   Create folder ``backend`` in the root
 
   Endpoints:
-    - /possession: Get Possession list
-    - /possession: Create Possession: [libelle, valeur, dateDebut, taux]
+    - /possession: Get Possession list (done)
+    - /possession: Create Possession: [libelle, valeur, dateDebut, taux] (done)
     - /possession/:libelle: Update Possession by libelle: [libelle, dateFin]
     - /possession/:libelle/close: Close Possession => set dateFin to current Date
     - /patrimoine/:date: Get Valeur Patrimoine: [Date] => Valeur

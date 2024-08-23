@@ -1,5 +1,5 @@
 import express from 'express';
-import {createPossession, getPossessionList} from "../services/possession.js";
+import {createPossession, getPossessionList, updatePossession} from "../services/possession.js";
 import Possession from "../../models/possessions/Possession.js";
 const router = express.Router();
 
@@ -18,6 +18,17 @@ router.post('/', (req, res) => {
     ).then(()=>{
         res.sendStatus(200);
     })
+})
+
+router.post('/:libelle', (req, res) => {
+    const cibleLibelle = req.params.libelle;
+    updatePossession(cibleLibelle, new Possession(req.body.possesseur, req.body.libelle, req.body.valeur, req.body.dateDebut, req.body.dateFin, req.body.tauxAmortissement))
+        .then(() => {
+            res.sendStatus(200);
+        }
+    )
+
+    console.log(req.body.libelle)
 })
 
 export default router;

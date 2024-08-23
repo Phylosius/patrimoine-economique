@@ -27,7 +27,7 @@ function convertPossessionToJSON(possession) {
             },
             libelle: possession.libelle,
             valeur: possession.valeur,
-            dateDebut: possession.dateDebut.toISOString(),
+            dateDebut: possession.dateDebut ? possession.dateDebut.toISOString() : null,
             dateFin: possession.dateFin ? possession.dateFin.toISOString() : null,
             tauxAmortissement: possession.tauxAmortissement
         }
@@ -122,34 +122,31 @@ async function savePossession(possession) {
 
 /**
  * Met à jour les propriétés d'une possession.
+ * @param cibleLibelle
  * @param {Possession} possession Possession à mettre à jour
  * @return {Promise<void>}
  */
-async function updatePossession(possession) {
+async function updatePossession(cibleLibelle, possession) {
     const { status, data, error } = await readFile(dataPath);
     if (status === 'ERROR') {
         throw new Error(`Failed to read file: ${error}`);
     }
 
     const updatedData = data.map((item) => {
-        if (item.model === possession.constructor.name && item.data.libelle === possession.libelle) {
-            const cachePossession = new Possession(
-                defautPossesseur,
-                item.data.libelle,
-                item.data.valeur,
-                new Date(item.data.dateDebut),
-                new Date(item.data.dateFin),
-                item.data.tauxAmortissement
-            )
-
-            cachePossession.possesseur = possession.possesseur | cachePossession.possesseur
-            cachePossession.libelle = possession.libelle | cachePossession.libelle
-            cachePossession.valeur = possession.valeur | cachePossession.valeur
-            cachePossession.tauxAmortissement = possession.tauxAmortissement | cachePossession.tauxAmortissement
-            cachePossession.dateDebut = possession.dateDebut | cachePossession.dateDebut
-            cachePossession.dateFin = possession.dateFin | cachePossession.dateFin
-
-            return convertPossessionToJSON(cachePossession);
+        if (item.data.libelle === cibleLibelle) {
+            return {
+                model: possession.constructor.name,
+                data: {
+                    possesseur: !possession.possesseur ? item.data.possesseur : {
+                        nom: possession.possesseur.nom
+                    },
+                    libelle: possession.libelle || item.data.libelle,
+                    valeur: possession.valeur != null ? possession.valeur : item.data.valeur,
+                    dateDebut: possession.dateDebut ? possession.dateDebut.toISOString() : item.data.dateDebut,
+                    dateFin: possession.dateFin ? possession.dateFin.toISOString() : item.data.dateFin,
+                    tauxAmortissement: possession.tauxAmortissement != null ? possession.tauxAmortissement : item.data.tauxAmortissement
+                }
+            }
         }
         return item;
     });
@@ -178,7 +175,7 @@ async function deletePossession(possession) {
     }
 
     const updatedData = data.filter((item) => {
-        return !(item.model === possession.constructor.name && item.data.libelle === possession.libelle);
+        return !(item.data.libelle === possession.libelle);
     });
 
     const { status: writeStatus, error: writeError } = await writeFile(dataPath, updatedData);
