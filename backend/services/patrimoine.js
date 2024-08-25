@@ -2,7 +2,7 @@ import Patrimoine from "../../models/Patrimoine.js";
 import {getPossessionsList} from "./possession.js";
 
 
-export default function getPatrimoine(req, res) {
+export default function getPatrimoine() {
     let possessions;
     getPossessionsList().then(possessionsList => {
         possessions = possessionsList;
