@@ -6,7 +6,7 @@
                 "nom": "John Doe"
             },
             "libelle": "phone_of_john",
-            "valeur": 0,
+            "valeur": 50,
             "dateDebut": "2024-08-23T11:13:29.550Z",
             "dateFin": "2024-08-23T11:09:29.302Z",
             "tauxAmortissement": 1
@@ -19,7 +19,7 @@
                 "nom": "John Doe"
             },
             "libelle": "salaire",
-            "valeur": 0,
+            "valeur": 50,
             "dateDebut": "2024-08-20T14:00:22.994Z",
             "dateFin": "2024-08-23T17:01:58.845Z",
             "tauxAmortissement": 0,
