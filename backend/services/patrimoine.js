@@ -2,12 +2,8 @@ import Patrimoine from "../../models/Patrimoine.js";
 import {getPossessionsList} from "./possession.js";
 
 
-export default function getPatrimoine() {
-    let possessions;
-    getPossessionsList().then(possessionsList => {
-        possessions = possessionsList;
-    });
-
+export async function getPatrimoine() {
+    let possessions = await getPossessionsList()
     return new Patrimoine(possessions[0].possesseur, possessions);
 }
 

@@ -1,8 +1,10 @@
-import getPatrimoine from "../services/patrimoine.js";
+import {getPatrimoine} from "../services/patrimoine.js";
 
 
 export function getValeurPatrimoine(req, res) {
     const date = new Date(req.params.date);
-    res.send(getPatrimoine().getValeur(date))
+    getPatrimoine().then((patrimoine) => {
+        res.json(patrimoine.getValeur(date));
+    });
 }
 
