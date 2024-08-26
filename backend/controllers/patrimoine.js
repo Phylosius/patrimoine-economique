@@ -18,7 +18,6 @@ export function getPatrimoineRangeByMonth(req, res) {
         dateRange.forEach(date => {
             json[date.toISOString()] = patrimoine.getValeur(date);
         })
+        res.json(json);
     })
-
-    res.json(json);
 }
