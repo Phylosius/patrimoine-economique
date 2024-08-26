@@ -11,7 +11,7 @@
     - /possession/:libelle: Update Possession by libelle: [libelle, dateFin] (done)
     - /possession/:libelle/close: Close Possession => set dateFin to current Date (done)
     - /patrimoine/:date: Get Valeur Patrimoine: [Date] => Valeur (done)
-    - /patrimoine/range:
+    - /patrimoine/range: (done)
       {
       type: 'month',
       dateDebut: xxx,
