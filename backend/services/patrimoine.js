@@ -20,9 +20,9 @@ function getDatesByMonth(startDate, endDate, dayForMiddle = null) {
     return dates;
 }
 
-export function getDateRange(start, end, by="month", dayForMiddle = null) {
+export function getDateRange(start, end, by="month", params ={dayForMiddle : null}) {
     if (by === "month") {
-        return getDatesByMonth(start, end, dayForMiddle);
+        return getDatesByMonth(start, end, params.dayForMiddle);
     }
 }
 

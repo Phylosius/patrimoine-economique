@@ -11,7 +11,7 @@ export function getValeurPatrimoine(req, res) {
 export function getPatrimoineRangeByMonth(req, res) {
     const start = new Date(req.body.dateDebut);
     const end = new Date(req.body.dateFin);
-    const dateRange = getDateRange(start, end, "month", req.body.jour);
+    const dateRange = getDateRange(start, end, "month", {dayForMiddle: req.body.jour});
 
     let json = {};
     getPatrimoine().then((patrimoine) => {
