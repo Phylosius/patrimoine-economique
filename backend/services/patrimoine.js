@@ -7,21 +7,23 @@ export async function getPatrimoine() {
     return new Patrimoine(possessions[0].possesseur, possessions);
 }
 
-export function getDateRange(start, end, by="month", dayForMiddle = null) {
-    let dates = [];
-    if (by === "month") {
-        const monthBetween = getMonthBetween(start, end);
+function getDatesByMonth(startDate, endDate, dayForMiddle = null) {
+    const dates = [];
+    const currentDate = new Date(startDate);
 
-        dates.push(start);
-        for (let i = 1; i <= monthBetween; i++) {
-            const date = new Date((new Date(start)).setMonth(start.getMonth() + i));
-            dayForMiddle ? date.setDate(dayForMiddle): null;
-            dates.push(date);
-        }
-        dates.push(end);
+    while (currentDate <= endDate) {
+        dates.push(new Date(currentDate));
+        dayForMiddle ? currentDate.setDate(dayForMiddle): null;
+        currentDate.setMonth(currentDate.getMonth() + 1);
     }
 
     return dates;
+}
+
+export function getDateRange(start, end, by="month", dayForMiddle = null) {
+    if (by === "month") {
+        return getDatesByMonth(start, end, dayForMiddle);
+    }
 }
 
 export function getMonthBetween(start, end) {
