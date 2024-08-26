@@ -1,4 +1,4 @@
-import {getPatrimoine} from "../services/patrimoine.js";
+import {getDateRange, getPatrimoine} from "../services/patrimoine.js";
 
 
 export function getValeurPatrimoine(req, res) {
@@ -8,3 +8,17 @@ export function getValeurPatrimoine(req, res) {
     });
 }
 
+export function getPatrimoineRangeByMonth(req, res) {
+    const start = new Date(req.body.dateDebut);
+    const end = new Date(req.body.dateFin);
+    const dateRange = getDateRange(start, end, "month", req.body.jour);
+
+    let json = {};
+    getPatrimoine().then((patrimoine) => {
+        dateRange.forEach(date => {
+            json[date.toISOString()] = patrimoine.getValeur(date);
+        })
+    })
+
+    res.json(json);
+}
