@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 import axios from 'axios';
+import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 
 ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend);
 
@@ -19,13 +20,32 @@ function Patrimoine() {
     };
 
     return (
-        <div>
-            <DatePicker selected={dateDebut} onChange={(date) => setDateDebut(date)} />
-            <DatePicker selected={dateFin} onChange={(date) => setDateFin(date)} />
-            <input type="number" value={jour} onChange={(e) => setJour(e.target.value)} />
-            <button onClick={handleValidate}>Valider</button>
-            <Line data={chartData} />
-        </div>
+        <Container>
+            <Row>
+                <Col>
+                    <Form.Group>
+                        <Form.Label>Date de début</Form.Label>
+                        <DatePicker selected={dateDebut} onChange={(date) => setDateDebut(date)} className="form-control" />
+                    </Form.Group>
+                </Col>
+                <Col>
+                    <Form.Group>
+                        <Form.Label>Date de fin</Form.Label>
+                        <DatePicker selected={dateFin} onChange={(date) => setDateFin(date)} className="form-control" />
+                    </Form.Group>
+                </Col>
+                <Col>
+                    <Form.Group>
+                        <Form.Label>Jour</Form.Label>
+                        <Form.Control type="number" value={jour} onChange={(e) => setJour(e.target.value)} />
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Button onClick={handleValidate} variant="primary">Valider</Button>
+            <div className="mt-4">
+                <Line data={chartData} />
+            </div>
+        </Container>
     );
 }
 

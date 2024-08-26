@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Table, Button } from 'react-bootstrap';
 
 function ListPossession() {
     const [possessions, setPossessions] = useState([]);
@@ -20,9 +21,11 @@ function ListPossession() {
     };
 
     return (
-        <div>
-            <Link to="/possession/create">Créer Possession</Link>
-            <table>
+        <div className="container">
+            <Link to="/possession/create">
+                <Button variant="primary" className="mb-3">Créer Possession</Button>
+            </Link>
+            <Table striped bordered hover>
                 <thead>
                 <tr>
                     <th>Libelle</th>
@@ -44,13 +47,15 @@ function ListPossession() {
                         <td>{possession.taux}</td>
                         <td>{/* Valeur actuelle */}</td>
                         <td>
-                            <Link to={`/possession/${possession.libelle}/update`}>Modifier</Link>
-                            <button onClick={() => handleClose(possession.libelle)}>Clôturer</button>
+                            <Link to={`/possession/${possession.libelle}/update`}>
+                                <Button variant="warning" className="me-2">Modifier</Button>
+                            </Link>
+                            <Button variant="danger" onClick={() => handleClose(possession.libelle)}>Clôturer</Button>
                         </td>
                     </tr>
                 ))}
                 </tbody>
-            </table>
+            </Table>
         </div>
     );
 }

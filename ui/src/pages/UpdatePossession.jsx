@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Container, Form, Button } from 'react-bootstrap';
 
 function UpdatePossession() {
     const { libelle } = useParams();
@@ -18,11 +19,16 @@ function UpdatePossession() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="date" value={dateFin} onChange={(e) => setDateFin(e.target.value)} required />
-            <button type="submit">Mettre à jour</button>
-        </form>
+        <Container>
+            <h2>Mettre à jour la Possession</h2>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3">
+                    <Form.Label>Date Fin</Form.Label>
+                    <Form.Control type="date" value={dateFin} onChange={(e) => setDateFin(e.target.value)} required />
+                </Form.Group>
+                <Button type="submit" variant="primary">Mettre à jour</Button>
+            </Form>
+        </Container>
     );
 }
 
-export default UpdatePossession;
