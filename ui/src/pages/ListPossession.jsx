@@ -23,7 +23,6 @@ function ListPossession() {
                 ));
         })
         setPossessions(cp);
-        console.log(psss)
     };
 
     useEffect(() => {
@@ -35,7 +34,6 @@ function ListPossession() {
         await fetchPossessions()
     };
 
-    console.log(possessions)
     return (
         <div className="container">
             <Link to="/possession/create">
