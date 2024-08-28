@@ -5,11 +5,11 @@
             "possesseur": {
                 "nom": "John Doe"
             },
-            "libelle": "phone_of_john",
-            "valeur": 50,
+            "libelle": "phone of john",
+            "valeur": 0,
             "dateDebut": "2024-08-23T11:13:29.550Z",
-            "dateFin": "2024-08-23T11:09:29.302Z",
-            "tauxAmortissement": 1
+            "dateFin": "2002-10-10T00:00:00.000Z",
+            "tauxAmortissement": 0
         }
     },
     {
@@ -19,9 +19,9 @@
                 "nom": "John Doe"
             },
             "libelle": "salaire",
-            "valeur": 50,
+            "valeur": 0,
             "dateDebut": "2024-08-20T14:00:22.994Z",
-            "dateFin": "2024-08-23T17:01:58.845Z",
+            "dateFin": "2024-08-28T09:40:03.077Z",
             "tauxAmortissement": 0,
             "jour": 30,
             "valeurConstante": 0
