@@ -57,8 +57,8 @@ function ListPossession() {
                     <tr key={possession.libelle}>
                         <td>{possession.libelle}</td>
                         <td>{possession.valeur}</td>
-                        <td>{possession.dateDebut.toLocaleString()}</td>
-                        <td>{possession.dateFin.toLocaleString()}</td>
+                        <td>{possession.dateDebut ? possession.dateDebut.toLocaleString() : null}</td>
+                        <td>{possession.dateFin ? possession.dateFin.toLocaleString() : null}</td>
                         <td>{possession.tauxAmortissement}</td>
                         <td>{possession.getValeur(new Date())}</td>
                         <td>
