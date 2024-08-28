@@ -10,37 +10,42 @@ export function updatePossessionByRequest(req,res){
     if (cibleLibelle) {
 
         if (!req.params.model) {
-            updatePossession(cibleLibelle, new Possession(req.body.possesseur, req.body.libelle, req.body.valeur, req.body.dateDebut, req.body.dateFin, req.body.tauxAmortissement))
+            const ddebut = new Date(req.body.dateDebut);
+            const dfin = new Date(req.body.dateFin);
+            updatePossession(cibleLibelle, new Possession(req.body.possesseur, req.body.libelle, req.body.valeur, ddebut, dfin, req.body.tauxAmortissement))
                 .then(() => {res.sendStatus(200);})
         } else {
+            const ddebut = new Date(req.body.data.dateDebut);
+            const dfin = new Date(req.body.dateFin);
+
             if (req.params.model === "Flux") {
                 updatePossession(cibleLibelle, new Flux(
                     new Personne(req.body.possesseur.name),
-                    req.body.libelle,
-                    req.body.valeur,
-                    req.body.dateDebut,
-                    req.body.dateFin,
-                    req.body.tauxAmortissement,
-                    req.body.jour
+                    req.body.data.libelle,
+                    req.body.data.valeur,
+                    ddebut,
+                    dfin,
+                    req.body.data.tauxAmortissement,
+                    req.body.data.jour
                 )).then(() => {res.sendStatus(200);})
             } else if (req.params.model === "Argent") {
                 updatePossession(cibleLibelle, new Argent(
                     new Personne(req.body.possesseur.name),
-                    req.body.libelle,
-                    req.body.valeur,
-                    req.body.dateDebut,
-                    req.body.dateFin,
-                    req.body.tauxAmortissement,
-                    req.body.type
+                    req.body.data.libelle,
+                    req.body.data.valeur,
+                    req.body.data.dateDebut,
+                    req.body.data.dateFin,
+                    req.body.data.tauxAmortissement,
+                    req.body.data.type
                 )).then(() => {res.sendStatus(200);})
             } else if (req.params.model === "BienMateriel") {
                 updatePossession(cibleLibelle, new BienMateriel(
                     new Personne(req.body.possesseur.name),
-                    req.body.libelle,
-                    req.body.valeur,
-                    req.body.dateDebut,
-                    req.body.dateFin,
-                    req.body.tauxAmortissement
+                    req.body.data.libelle,
+                    req.body.data.valeur,
+                    req.body.data.dateDebut,
+                    req.body.data.dateFin,
+                    req.body.data.tauxAmortissement
                 )).then(() => {res.sendStatus(200);})
             }
         }
@@ -53,10 +58,10 @@ export function updatePossessionByRequest(req,res){
 export function closePossession(req,res){
     if (req.params.libelle !== "") {
         getPossession(req.params.libelle)
-            .then((p) => {
+            .then((pss) => {
                 return new Promise((resolve,) => {
-                    p.dateFin = new Date()
-                    updatePossession(p.libelle, p)
+                    pss.dateFin = new Date()
+                    updatePossession(pss.libelle, pss)
                         .then(()=>{resolve("success")})
                 })
             })

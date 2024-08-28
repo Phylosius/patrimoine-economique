@@ -179,8 +179,8 @@ async function updatePossession(cibleLibelle, possession) {
                     },
                     libelle: possession.libelle || item.data.libelle,
                     valeur: possession.valeur != null ? possession.valeur : item.data.valeur,
-                    dateDebut: possession.dateDebut ? possession.dateDebut.toISOString() : item.data.dateDebut,
-                    dateFin: possession.dateFin ? possession.dateFin.toISOString() : item.data.dateFin,
+                    dateDebut: possession.dateDebut != null ? possession.dateDebut.toISOString() : item.data.dateDebut,
+                    dateFin: possession.dateFin != null ? possession.dateFin.toISOString() : item.data.dateFin,
                     tauxAmortissement: possession.tauxAmortissement != null ? possession.tauxAmortissement : item.data.tauxAmortissement,
                 }
             }
