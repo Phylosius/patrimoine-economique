@@ -51,7 +51,10 @@ function ListPossession() {
                         <td>{possession.taux}</td>
                         <td>{/* Valeur actuelle */}</td>
                         <td>
-                            <Link to={`/possession/${possession.libelle}/update`}>
+                            <Link
+                                to={`/possession/${possession.libelle}/update`}
+                                state={possession}
+                            >
                                 <Button variant="warning" className="me-2">Modifier</Button>
                             </Link>
                             <Button variant="danger" onClick={() => handleClose(possession.libelle)}>Clôturer</Button>
