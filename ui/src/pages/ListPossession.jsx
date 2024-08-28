@@ -1,25 +1,26 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../axiosConfig.js';
 import { Link } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
 
 function ListPossession() {
     const [possessions, setPossessions] = useState([]);
 
-    useEffect(() => {
-        const fetchPossessions = async () => {
-            const response = await axios.get('/possession');
-            setPossessions(response.data);
-        };
-
-        fetchPossessions();
-    }, []);
+    // useEffect(() => {
+    //     const fetchPossessions = async () => {
+    //         const response = await axios.get('/possession');
+    //         setPossessions(response.data);
+    //     };
+    //
+    //     fetchPossessions();
+    // }, []);
 
     const handleClose = async (libelle) => {
         await axios.post(`/possession/${libelle}/close`);
         // Refresh possessions list
     };
 
+    console.log(possessions)
     return (
         <div className="container">
             <Link to="/possession/create">
@@ -38,7 +39,8 @@ function ListPossession() {
                 </tr>
                 </thead>
                 <tbody>
-                {possessions.map(possession => (
+                {
+                    possessions.length > 0 ? possessions.map(possession => (
                     <tr key={possession.libelle}>
                         <td>{possession.libelle}</td>
                         <td>{possession.valeur}</td>
@@ -53,7 +55,7 @@ function ListPossession() {
                             <Button variant="danger" onClick={() => handleClose(possession.libelle)}>Clôturer</Button>
                         </td>
                     </tr>
-                ))}
+                    )) : (<tr><td>chargement ...</td></tr>) }
                 </tbody>
             </Table>
         </div>

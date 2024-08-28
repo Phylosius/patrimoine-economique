@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
-import axios from 'axios';
+import axios from '../axiosConfig.js';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 
 ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend);
@@ -16,7 +16,13 @@ function Patrimoine() {
 
     const handleValidate = async () => {
         const response = await axios.post('/patrimoine/range', { type: 'month', dateDebut, dateFin, jour });
-        // Process response and update chartData
+        const cacheChartData = chartData;
+
+        response.data.forEach((item) => {
+            cacheChartData[item] = response.data[item];
+        })
+
+        setChartData(cacheChartData)
     };
 
     return (
@@ -43,7 +49,7 @@ function Patrimoine() {
             </Row>
             <Button onClick={handleValidate} variant="primary">Valider</Button>
             <div className="mt-4">
-                <Line data={chartData} />
+                {/*<Line data={[chartData]} />*/}
             </div>
         </Container>
     );

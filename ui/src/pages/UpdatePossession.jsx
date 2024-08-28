@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../axiosConfig.js';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
 
@@ -32,3 +32,4 @@ function UpdatePossession() {
     );
 }
 
+export default UpdatePossession;

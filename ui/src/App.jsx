@@ -7,8 +7,8 @@ import UpdatePossession from './pages/UpdatePossession';
 
 function App() {
   return (
-      <Router>
-        <Header />
+      <Router >
+        <Header className="w-25"/>
         <Routes>
           <Route path="/patrimoine" element={<Patrimoine />} />
           <Route path="/possession" element={<ListPossession />} />
