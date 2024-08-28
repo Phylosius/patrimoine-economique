@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from '../axiosConfig.js';
 import { Link } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
+import Possession from "../../../models/possessions/Possession.js";
+import Personne from "../../../models/Personne.js";
 
 function ListPossession() {
     const [possessions, setPossessions] = useState([]);
@@ -9,7 +11,18 @@ function ListPossession() {
     const fetchPossessions = async () => {
         const response = await axios.get('/possession');
         const psss = await response.data.map(p => p.data);
-        setPossessions(psss);
+        const cp = []
+        psss.forEach(pss => {
+            cp.push(new Possession(
+                new Personne(pss.possesseur.nom),
+                pss.libelle,
+                pss.valeur,
+                pss.dateDebut != null ? new Date(pss.dateDebut) : null,
+                pss.dateFin != null ? new Date(pss.dateFin) : null,
+                pss.tauxAmortissement
+                ));
+        })
+        setPossessions(cp);
         console.log(psss)
     };
 
@@ -19,7 +32,7 @@ function ListPossession() {
 
     const handleClose = async (libelle) => {
         await axios.post(`/possession/${libelle}/close`);
-        // Refresh possessions list
+        await fetchPossessions()
     };
 
     console.log(possessions)
@@ -46,10 +59,10 @@ function ListPossession() {
                     <tr key={possession.libelle}>
                         <td>{possession.libelle}</td>
                         <td>{possession.valeur}</td>
-                        <td>{possession.dateDebut}</td>
-                        <td>{possession.dateFin}</td>
-                        <td>{possession.taux}</td>
-                        <td>{/* Valeur actuelle */}</td>
+                        <td>{possession.dateDebut.toLocaleString()}</td>
+                        <td>{possession.dateFin.toLocaleString()}</td>
+                        <td>{possession.tauxAmortissement}</td>
+                        <td>{possession.getValeur(new Date())}</td>
                         <td>
                             <Link
                                 to={`/possession/${possession.libelle}/update`}
