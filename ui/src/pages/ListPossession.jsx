@@ -6,14 +6,16 @@ import { Table, Button } from 'react-bootstrap';
 function ListPossession() {
     const [possessions, setPossessions] = useState([]);
 
-    // useEffect(() => {
-    //     const fetchPossessions = async () => {
-    //         const response = await axios.get('/possession');
-    //         setPossessions(response.data);
-    //     };
-    //
-    //     fetchPossessions();
-    // }, []);
+    const fetchPossessions = async () => {
+        const response = await axios.get('/possession');
+        const psss = await response.data.map(p => p.data);
+        setPossessions(psss);
+        console.log(psss)
+    };
+
+    useEffect(() => {
+        fetchPossessions();
+    }, []);
 
     const handleClose = async (libelle) => {
         await axios.post(`/possession/${libelle}/close`);
