@@ -16,7 +16,7 @@ function getDatesByMonth(startDate, endDate, dayForMiddle = null, endIncluded = 
         dayForMiddle ? currentDate.setDate(dayForMiddle): null;
         currentDate.setMonth(currentDate.getMonth() + 1);
     }
-    endIncluded ? dates.push(endDate) : null;
+    endIncluded === true ? dates.push(endDate) : null;
 
     return dates;
 }
