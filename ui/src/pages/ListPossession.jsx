@@ -71,7 +71,7 @@ function ListPossession() {
                             <Button variant="danger" onClick={() => handleClose(possession.libelle)}>Clôturer</Button>
                         </td>
                     </tr>
-                    )) : (<tr><td>chargement ...</td></tr>) }
+                    )) : (<tr><td>Aucune possession enregisté</td></tr>) }
                 </tbody>
             </Table>
         </div>
