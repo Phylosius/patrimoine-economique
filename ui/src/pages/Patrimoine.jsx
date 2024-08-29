@@ -9,9 +9,9 @@ import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend);
 
 function Patrimoine() {
-    const [dateDebut, setDateDebut] = useState(new Date());
+    const [dateDebut, setDateDebut] = useState(new Date("2024-01-01"));
     const [dateFin, setDateFin] = useState(new Date());
-    const [jour, setJour] = useState('1');
+    const [jour, setJour] = useState('5');
     const [chartData, setChartData] = useState({
         labels: [],
         datasets: [{
