@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Line } from 'react-chartjs-2';
@@ -13,36 +13,45 @@ function Patrimoine() {
     const [dateFin, setDateFin] = useState(new Date());
     const [jour, setJour] = useState('1');
     const [chartData, setChartData] = useState({
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Valeur du Patrimoine',
+            data: [],
             borderWidth: 1
-        }]});
-
+        }]
+    });
     const [patrimoineData, setPatrimoineData] = useState({});
 
-    const fetchPatrimoineData = async (_dateDebut, _dateFin, _jour)=> {
-        const {data} = await axios.get("/patrimoine/range", {
-            params : {
-                type: "month",
-                dateDebut: _dateDebut,
-                dateFin: _dateFin,
-                jour: _jour
+    const fetchPatrimoineData = async (_dateDebut, _dateFin, _jour) => {
+        try {
+            const response = await axios.get("/patrimoine/range", {
+                params: {
+                    "type": "month",
+                    "dateDebut": _dateDebut,
+                    "dateFin": _dateFin,
+                    "jour": _jour
+                }
+            });
+
+            if (response.status === 200) {
+                setPatrimoineData(response.data);
+                console.log(response)
             }
-        })
+        } catch (error) {
+            console.error("Erreur lors de la récupération des données:", error);
+        }
+    };
 
-        console.log("data: " + Object.keys(data))
-        if (data.status === 200) setPatrimoineData(data)
-
-    }
+    useEffect(() => {
+        if (Object.keys(patrimoineData).length > 0) {
+            buildChartData();
+        }
+    }, [patrimoineData]);
 
     const buildChartData = () => {
         const labels = Object.keys(patrimoineData).map(date => new Date(date).toLocaleDateString());
         const values = Object.values(patrimoineData);
-        console.log("patrimoineData:" + Object.keys(patrimoineData))
-        console.log("values: " + values)
-        console.log("labels: " + labels)
+
         setChartData({
             labels,
             datasets: [
@@ -55,18 +64,14 @@ function Patrimoine() {
                 },
             ],
         });
-    }
-
-    const handleValidate = async () => {
-        await fetchPatrimoineData(dateDebut, dateFin, jour);
-        buildChartData();
     };
 
+    const handleValidate = async () => {
+        await fetchPatrimoineData(dateDebut.toISOString().split('T')[0], dateFin.toISOString().split('T')[0], jour);
+    };
 
     useEffect(() => {
-        fetchPatrimoineData("2020-01-01", "2020-09-01", 15)
-            .then(buildChartData);
-
+        fetchPatrimoineData(dateDebut.toISOString().split('T')[0], dateFin.toISOString().split('T')[0], jour);
     }, []);
 
     return (
@@ -93,8 +98,7 @@ function Patrimoine() {
             </Row>
             <Button onClick={handleValidate} variant="primary">Valider</Button>
             <div className="mt-4">
-                {Object.keys(patrimoineData).length > 0 ? <Line data={chartData}/> : "chargement ..."}
-                {/*<Line data={chartData}/>*/}
+                {chartData ? <Line data={chartData} /> : "Chargement..."}
             </div>
         </Container>
     );
