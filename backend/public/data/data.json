@@ -1,3 +1,41 @@
 [
-
+    {
+        "model": "Possession",
+        "data": {
+            "possesseur": {
+                "nom": "Anonymous"
+            },
+            "libelle": "Phone de John",
+            "valeur": "1000",
+            "dateDebut": "2024-05-17T00:00:00.000Z",
+            "dateFin": "2024-08-29T13:31:33.320Z",
+            "tauxAmortissement": "25"
+        }
+    },
+    {
+        "model": "Possession",
+        "data": {
+            "possesseur": {
+                "nom": "Anonymous"
+            },
+            "libelle": "Montre de John",
+            "valeur": "5000",
+            "dateDebut": "2020-05-17T00:00:00.000Z",
+            "dateFin": null,
+            "tauxAmortissement": "-1"
+        }
+    },
+    {
+        "model": "Possession",
+        "data": {
+            "possesseur": {
+                "nom": "Anonymous"
+            },
+            "libelle": "Nft de John",
+            "valeur": "50",
+            "dateDebut": "2024-07-17T00:00:00.000Z",
+            "dateFin": "2024-08-29T13:21:34.220Z",
+            "tauxAmortissement": "-10"
+        }
+    }
 ]
