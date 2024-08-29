@@ -10,8 +10,8 @@ export function updatePossessionByRequest(req,res){
     if (cibleLibelle) {
 
         if (!req.params.model) {
-            const ddebut = new Date(req.body.dateDebut);
-            const dfin = new Date(req.body.dateFin);
+            const ddebut = req.body.dateDebut ? new Date(req.body.dateDebut) : null;
+            const dfin = req.body.dateDebut ? new Date(req.body.dateFin) : null;
             console.log(req.body.valeur)
             updatePossession(
                 cibleLibelle,
