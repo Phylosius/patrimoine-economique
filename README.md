@@ -45,4 +45,5 @@
 
 ## Todo perso
 
+- [ ] fix: possession value and tauxAmmortissement changed to 0 by ui possession modification
 - [ ] corriger les verbes http
