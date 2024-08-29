@@ -12,7 +12,7 @@ export default class Possession {
    * @param dateFin {Date} Date de cloture de la possession
    * @param tauxAmortissement {int} Taux d'ammortissement de la possession
    * */
-  constructor(possesseur = new Personne("Anonymous"), libelle = "Possession"+ (new Date()).getTime(), valeur = 0, dateDebut = null, dateFin = null, tauxAmortissement = 0) {
+  constructor(possesseur = new Personne("Anonymous"), libelle = "Possession"+ (new Date()).getTime(), valeur , dateDebut = null, dateFin = null, tauxAmortissement ) {
     this.possesseur = possesseur;
     this.libelle = libelle;
     this.valeur = valeur;
