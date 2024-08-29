@@ -10,7 +10,7 @@ ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Title, T
 
 function Patrimoine() {
     const [dateDebut, setDateDebut] = useState(new Date("2024-01-01"));
-    const [dateFin, setDateFin] = useState(new Date());
+    const [dateFin, setDateFin] = useState(new Date(new Date().setMonth(new Date().getMonth() + 5)));
     const [jour, setJour] = useState('5');
     const [chartData, setChartData] = useState({
         labels: [],
@@ -35,7 +35,6 @@ function Patrimoine() {
 
             if (response.status === 200) {
                 setPatrimoineData(response.data);
-                console.log(response)
             }
         } catch (error) {
             console.error("Erreur lors de la récupération des données:", error);
