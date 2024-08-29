@@ -9,15 +9,19 @@ export function getValeurPatrimoine(req, res) {
 }
 
 export function getPatrimoineRangeByMonth(req, res) {
-    const start = new Date(req.body.dateDebut);
-    const end = new Date(req.body.dateFin);
-    const dateRange = getDateRange(start, end, "month", {dayForMiddle: req.body.jour});
+    // Récupération des paramètres à partir de req.query pour une requête GET
+    const start = new Date(req.query.dateDebut);
+    const end = new Date(req.query.dateFin);
+    const dateRange = getDateRange(start, end, "month", { dayForMiddle: req.query.jour });
 
     let json = {};
     getPatrimoine().then((patrimoine) => {
         dateRange.forEach(date => {
             json[date.toISOString()] = patrimoine.getValeur(date);
-        })
+        });
         res.json(json);
-    })
+    }).catch(error => {
+        console.error('Erreur lors de la récupération du patrimoine:', error);
+        res.status(500).json({ error: 'Erreur interne du serveur' });
+    });
 }

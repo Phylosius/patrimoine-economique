@@ -7,7 +7,7 @@ export async function getPatrimoine() {
     return new Patrimoine(possessions[0].possesseur, possessions);
 }
 
-function getDatesByMonth(startDate, endDate, dayForMiddle = null) {
+function getDatesByMonth(startDate, endDate, dayForMiddle = null, endIncluded = true) {
     const dates = [];
     const currentDate = new Date(startDate);
 
@@ -16,6 +16,7 @@ function getDatesByMonth(startDate, endDate, dayForMiddle = null) {
         dayForMiddle ? currentDate.setDate(dayForMiddle): null;
         currentDate.setMonth(currentDate.getMonth() + 1);
     }
+    endIncluded ? dates.push(endDate) : null;
 
     return dates;
 }
