@@ -12,7 +12,16 @@ export function updatePossessionByRequest(req,res){
         if (!req.params.model) {
             const ddebut = new Date(req.body.dateDebut);
             const dfin = new Date(req.body.dateFin);
-            updatePossession(cibleLibelle, new Possession(req.body.possesseur, req.body.libelle, req.body.valeur, ddebut, dfin, req.body.tauxAmortissement))
+            console.log(req.body.valeur)
+            updatePossession(
+                cibleLibelle,
+                new Possession(
+                    req.body.possesseur,
+                    req.body.libelle,
+                    req.body.valeur,
+                    ddebut,
+                    dfin,
+                    req.body.tauxAmortissement))
                 .then(() => {res.sendStatus(200);})
         } else {
             const ddebut = new Date(req.body.data.dateDebut);

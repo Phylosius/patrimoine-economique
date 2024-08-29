@@ -55,7 +55,7 @@ function convertJSONToPossession(possessionJSON){
                 new Personne(possessionData.possesseur.nom),
                 possessionData.libelle,
                 possessionData.valeur,
-                new Date(possessionData.dateDebut),
+                possessionData.dateDebut ? new Date(possessionData.dateDebut) : null,
                 possessionData.dateFin ? new Date(possessionData.dateFin) : null,
                 possessionData.tauxAmortissement,
                 possessionData.type
@@ -178,10 +178,10 @@ async function updatePossession(cibleLibelle, possession) {
                         nom: possession.possesseur.nom
                     },
                     libelle: possession.libelle || item.data.libelle,
-                    valeur: possession.valeur != null ? possession.valeur : item.data.valeur,
+                    valeur: (possession.valeur != null && true) ? possession.valeur : item.data.valeur,
                     dateDebut: possession.dateDebut != null ? possession.dateDebut.toISOString() : item.data.dateDebut,
                     dateFin: possession.dateFin != null ? possession.dateFin.toISOString() : item.data.dateFin,
-                    tauxAmortissement: possession.tauxAmortissement != null ? possession.tauxAmortissement : item.data.tauxAmortissement,
+                    tauxAmortissement: possession.tauxAmortissement != null && true ? possession.tauxAmortissement : item.data.tauxAmortissement,
                 }
             }
 

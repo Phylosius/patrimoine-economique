@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Line } from 'react-chartjs-2';
@@ -12,18 +12,62 @@ function Patrimoine() {
     const [dateDebut, setDateDebut] = useState(new Date());
     const [dateFin, setDateFin] = useState(new Date());
     const [jour, setJour] = useState('1');
-    const [chartData, setChartData] = useState({});
+    const [chartData, setChartData] = useState({
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            borderWidth: 1
+        }]});
 
-    const handleValidate = async () => {
-        const response = await axios.post('/patrimoine/range', { type: 'month', dateDebut, dateFin, jour });
-        const cacheChartData = chartData;
+    const [patrimoineData, setPatrimoineData] = useState({});
 
-        response.data.forEach((item) => {
-            cacheChartData[item] = response.data[item];
+    const fetchPatrimoineData = async (_dateDebut, _dateFin, _jour)=> {
+        const {data} = await axios.get("/patrimoine/range", {
+            params : {
+                type: "month",
+                dateDebut: _dateDebut,
+                dateFin: _dateFin,
+                jour: _jour
+            }
         })
 
-        setChartData(cacheChartData)
+        console.log("data: " + Object.keys(data))
+        if (data.status === 200) setPatrimoineData(data)
+
+    }
+
+    const buildChartData = () => {
+        const labels = Object.keys(patrimoineData).map(date => new Date(date).toLocaleDateString());
+        const values = Object.values(patrimoineData);
+        console.log("patrimoineData:" + Object.keys(patrimoineData))
+        console.log("values: " + values)
+        console.log("labels: " + labels)
+        setChartData({
+            labels,
+            datasets: [
+                {
+                    label: 'Valeur du Patrimoine',
+                    data: values,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1,
+                },
+            ],
+        });
+    }
+
+    const handleValidate = async () => {
+        await fetchPatrimoineData(dateDebut, dateFin, jour);
+        buildChartData();
     };
+
+
+    useEffect(() => {
+        fetchPatrimoineData("2020-01-01", "2020-09-01", 15)
+            .then(buildChartData);
+
+    }, []);
 
     return (
         <Container>
@@ -49,7 +93,8 @@ function Patrimoine() {
             </Row>
             <Button onClick={handleValidate} variant="primary">Valider</Button>
             <div className="mt-4">
-                {/*<Line data={[chartData]} />*/}
+                {Object.keys(patrimoineData).length > 0 ? <Line data={chartData}/> : "chargement ..."}
+                {/*<Line data={chartData}/>*/}
             </div>
         </Container>
     );
