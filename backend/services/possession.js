@@ -85,17 +85,9 @@ function convertJSONToPossession(possessionJSON) {
  * @return {Promise<Possession[]>} Liste de Possession
  */
 async function getPossessionsList() {
-    const { status, data, error } = await readFile(dataPath);
-    if (status === 'ERROR') {
-        throw new Error(`Failed to read file: ${error}`);
-    }
+    const possessions = await getPossessionsJson();
 
-    const patrimoine = data.find(obj => obj.model === "Patrimoine");
-    if (!patrimoine) {
-        throw new Error('Patrimoine model not found in data.');
-    }
-
-    return patrimoine.data.possessions.map(item => convertJSONToPossession(item));
+    return possessions.map(item => convertJSONToPossession(item));
 }
 
 /**
@@ -122,7 +114,13 @@ async function getPossessionsJson() {
     if (status === 'ERROR') {
         throw new Error(`Failed to read file: ${error}`);
     }
-    return data;
+
+    const patrimoine = data.find(obj => obj.model === "Patrimoine");
+    if (!patrimoine) {
+        throw new Error('Patrimoine model not found in data.');
+    }
+
+    return patrimoine.data.possessions;
 }
 
 /**
