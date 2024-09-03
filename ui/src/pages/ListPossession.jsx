@@ -16,7 +16,7 @@ function ListPossession() {
             cp.push(new Possession(
                 new Personne(pss.possesseur.nom),
                 pss.libelle,
-                pss.valeur,
+                pss.valeur || pss.valeurConstante,
                 pss.dateDebut != null ? new Date(pss.dateDebut) : null,
                 pss.dateFin != null ? new Date(pss.dateFin) : null,
                 pss.tauxAmortissement
