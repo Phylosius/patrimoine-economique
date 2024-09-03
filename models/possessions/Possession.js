@@ -38,24 +38,26 @@ export default class Possession {
    * @return {number}
    * */
   getValeurApresAmortissement(dateActuelle) {
-    if (dateActuelle < this.dateDebut) {
-      return 0;
+    if (!(dateActuelle < this.dateDebut)) {
+
+      const differenceDate = {
+        year: dateActuelle.getFullYear() - this.dateDebut.getFullYear(),
+        month: dateActuelle.getMonth() - this.dateDebut.getMonth(),
+        day: dateActuelle.getDate() - this.dateDebut.getDate(),
+      };
+
+      const raison = differenceDate.year + differenceDate.month / 12 + differenceDate.day / 365;
+      console.log("raison: ", raison)
+      const result =  this.valeur - this.valeur * (raison * (this.tauxAmortissement || 0) / 100);
+      console.log("result: ", result)
+
+      if (result >= 0) {
+        return result
+      }
     }
 
-    const differenceDate = {
-      year: dateActuelle.getFullYear() - this.dateDebut.getFullYear(),
-      month: dateActuelle.getMonth() - this.dateDebut.getMonth(),
-      day: dateActuelle.getDate() - this.dateDebut.getDate(),
-    };
-  
-    const raison = differenceDate.year + differenceDate.month / 12 + differenceDate.day / 365;
+    return 0
 
-    const result =  this.valeur - this.valeur * (raison * this.tauxAmortissement / 100);
 
-    if (result >= 0) {
-      return result
-    } else {
-      return 0
-    }
   }
 }
