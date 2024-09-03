@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import axios from '../axiosConfig.js';
 import { Link } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
-import Possession from "../../../models/possessions/Possession.js";
-import Personne from "../../../models/Personne.js";
 import {convertJSONToPossession} from "../../services/possession.js";
 
 function ListPossession() {
@@ -11,7 +9,6 @@ function ListPossession() {
 
     const fetchPossessions = async () => {
         const response = await axios.get('/possession');
-        console.log(response.data)
         const cp = []
         response.data.forEach(pss => {
             cp.push(convertJSONToPossession(pss));
