@@ -10,9 +10,9 @@ function ListPossession() {
 
     const fetchPossessions = async () => {
         const response = await axios.get('/possession');
-        const psss = await response.data.map(p => p.data);
+        console.log(response.data)
         const cp = []
-        psss.forEach(pss => {
+        response.data.forEach(pss => {
             cp.push(new Possession(
                 new Personne(pss.possesseur.nom),
                 pss.libelle,
