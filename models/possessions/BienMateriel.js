@@ -24,6 +24,6 @@ export default class BienMateriel extends Possession {
    * @return {number} Valeur du bien matériel à la date donnée
    * */
   getValeur(date) {
-    super.getValeur(date);
+    return super.getValeur(date);
   }
 }
