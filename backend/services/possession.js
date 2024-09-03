@@ -97,12 +97,8 @@ async function getPossessionsList() {
  */
 async function getPossession(libelle) {
     const data = await getPossessionsJson();
-    const patrimoine = data.find(obj => obj.model === "Patrimoine");
-    if (!patrimoine) {
-        throw new Error('Patrimoine model not found in data.');
-    }
 
-    const possession = patrimoine.data.possessions.find(item => item.libelle === libelle);
+    const possession = data.find(item => item.libelle === libelle);
     return possession ? convertJSONToPossession(possession) : null;
 }
 
