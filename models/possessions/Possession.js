@@ -47,9 +47,7 @@ export default class Possession {
       };
 
       const raison = differenceDate.year + differenceDate.month / 12 + differenceDate.day / 365;
-      console.log("raison: ", raison)
       const result =  this.valeur - this.valeur * (raison * (this.tauxAmortissement || 0) / 100);
-      console.log("result: ", result)
 
       if (result >= 0) {
         return result
