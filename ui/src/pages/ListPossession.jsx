@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
 import Possession from "../../../models/possessions/Possession.js";
 import Personne from "../../../models/Personne.js";
+import {convertJSONToPossession} from "../../services/possession.js";
 
 function ListPossession() {
     const [possessions, setPossessions] = useState([]);
@@ -13,14 +14,7 @@ function ListPossession() {
         console.log(response.data)
         const cp = []
         response.data.forEach(pss => {
-            cp.push(new Possession(
-                new Personne(pss.possesseur.nom),
-                pss.libelle,
-                pss.valeur || pss.valeurConstante,
-                pss.dateDebut != null ? new Date(pss.dateDebut) : null,
-                pss.dateFin != null ? new Date(pss.dateFin) : null,
-                pss.tauxAmortissement
-                ));
+            cp.push(convertJSONToPossession(pss));
         })
         setPossessions(cp);
     };
@@ -56,7 +50,7 @@ function ListPossession() {
                     possessions.length > 0 ? possessions.map(possession => (
                     <tr key={possession.libelle}>
                         <td>{possession.libelle}</td>
-                        <td>{possession.valeur}</td>
+                        <td>{possession.valeurConstante ? possession.valeurConstante: possession.valeur}</td>
                         <td>{possession.dateDebut ? possession.dateDebut.toLocaleString() : null}</td>
                         <td>{possession.dateFin ? possession.dateFin.toLocaleString() : null}</td>
                         <td>{possession.tauxAmortissement}</td>
