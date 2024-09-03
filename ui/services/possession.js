@@ -2,58 +2,41 @@ import Argent from "../../models/possessions/Argent.js";
 import Personne from "../../models/Personne.js";
 import Flux from "../../models/possessions/Flux.js";
 import BienMateriel from "../../models/possessions/BienMateriel.js";
-import Possession from "../../models/possessions/Possession.js";
 
-export function convertJSONToPossession(possessionJSON){
-    const {model, data: possessionData} = possessionJSON;
+export function convertJSONToPossession(possessionJSON) {
+    const { possesseur, libelle, valeur, dateDebut, dateFin, tauxAmortissement, type, jour, valeurConstante } = possessionJSON;
+    const possesseurInstance = new Personne(possesseur.nom);
 
-    let possession;
-    switch (model) {
-        case 'Argent':
-            possession = new Argent(
-                new Personne(possessionData.possesseur.nom),
-                possessionData.libelle,
-                possessionData.valeur,
-                new Date(possessionData.dateDebut),
-                possessionData.dateFin ? new Date(possessionData.dateFin) : null,
-                possessionData.tauxAmortissement,
-                possessionData.type
-            );
-            break;
-        case 'Flux':
-            possession = new Flux(
-                new Personne(possessionData.possesseur.nom),
-                possessionData.libelle,
-                possessionData.valeur,
-                new Date(possessionData.dateDebut),
-                possessionData.dateFin ? new Date(possessionData.dateFin) : null,
-                possessionData.tauxAmortissement,
-                possessionData.jour
-            );
-            break;
-        case 'BienMateriel':
-            possession = new BienMateriel(
-                new Personne(possessionData.possesseur.nom),
-                possessionData.libelle,
-                possessionData.valeur,
-                new Date(possessionData.dateDebut),
-                possessionData.dateFin ? new Date(possessionData.dateFin) : null,
-                possessionData.tauxAmortissement
-            );
-            break;
-        case 'Possession':
-            possession = new Possession(
-                new Personne(possessionData.possesseur.nom),
-                possessionData.libelle,
-                possessionData.valeur,
-                new Date(possessionData.dateDebut),
-                possessionData.dateFin ? new Date(possessionData.dateFin) : null,
-                possessionData.tauxAmortissement
-            );
-            break;
-        default:
-            throw new Error(`Unknown model: ${model}`);
+    if (type !== undefined) {
+        return new Argent(
+            possesseurInstance,
+            libelle,
+            valeur,
+            dateDebut ? new Date(dateDebut) : null,
+            dateFin ? new Date(dateFin) : null,
+            tauxAmortissement,
+            type
+        );
     }
 
-    return possession;
+    if (jour !== undefined) {
+        return new Flux(
+            possesseurInstance,
+            libelle,
+            valeurConstante,
+            new Date(dateDebut),
+            dateFin ? new Date(dateFin) : null,
+            tauxAmortissement,
+            jour
+        );
+    }
+
+    return new BienMateriel(
+        possesseurInstance,
+        libelle,
+        valeur,
+        new Date(dateDebut),
+        dateFin ? new Date(dateFin) : null,
+        tauxAmortissement
+    );
 }

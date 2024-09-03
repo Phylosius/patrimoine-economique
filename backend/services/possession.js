@@ -61,12 +61,11 @@ function convertJSONToPossession(possessionJSON) {
         return new Flux(
             possesseurInstance,
             libelle,
-            valeur,
+            valeurConstante,
             new Date(dateDebut),
             dateFin ? new Date(dateFin) : null,
             tauxAmortissement,
-            jour,
-            valeurConstante
+            jour
         );
     }
 
