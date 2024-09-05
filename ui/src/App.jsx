@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
+import Header from './components/presentational/Header';
 import Patrimoine from './pages/Patrimoine';
 import ListPossession from './pages/ListPossession';
 import CreatePossession from './pages/CreatePossession';

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from '../axiosConfig.js';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { Container, Form, Button } from 'react-bootstrap';
+import UpdatePossessionForm from '../components/presentational/UpdatePossessionForm';
 
 function UpdatePossession() {
     const { libelle } = useParams();
@@ -13,35 +13,34 @@ function UpdatePossession() {
     const possession = location.state || {};
 
     useEffect(() => {
-        // Fetch current data for libelle
-    }, [libelle]);
+        if (possession.dateFin) {
+            setDateFin(possession.dateFin);
+        }
+        if (possession.libelle) {
+            setNewLibelle(possession.libelle);
+        }
+    }, [possession]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (formData) => {
         await axios.post(`/possession/${possession.libelle}`, {
-            "libelle": newLibelle.trim() !== '' ? newLibelle : libelle,
-            "dateDebut": possession.dateDebut,
-            "dateFin": dateFin,
+            libelle: formData.newLibelle.trim() !== '' ? formData.newLibelle : libelle,
+            dateDebut: possession.dateDebut,
+            dateFin: formData.dateFin,
         });
         navigate('/possession');
     };
 
     return (
-        <Container>
+        <div>
             <h2>Mettre à jour la Possession</h2>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                    <Form.Label>Libelle</Form.Label>
-                    <Form.Control type="text" value={newLibelle} onChange={(e) => setNewLibelle(e.target.value)} />
-                    <Form.Text>Laisser vide pour ne pas modifier</Form.Text>
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Date Fin</Form.Label>
-                    <Form.Control type="date" value={dateFin} onChange={(e) => setDateFin(e.target.value)} required />
-                </Form.Group>
-                <Button type="submit" variant="primary">Mettre à jour</Button>
-            </Form>
-        </Container>
+            <UpdatePossessionForm
+                newLibelle={newLibelle}
+                dateFin={dateFin}
+                onNewLibelleChange={setNewLibelle}
+                onDateFinChange={setDateFin}
+                onSubmit={handleSubmit}
+            />
+        </div>
     );
 }
 
