@@ -1,9 +1,9 @@
 import { readFile, writeFile } from './data.js';
-import Possession from '../../models/possessions/Possession.js';
-import Argent from '../../models/possessions/Argent.js';
-import Flux from '../../models/possessions/Flux.js';
-import BienMateriel from '../../models/possessions/BienMateriel.js';
-import Personne from '../../models/Personne.js';
+import Possession from '../models/possessions/Possession.js';
+import Argent from '../models/possessions/Argent.js';
+import Flux from '../models/possessions/Flux.js';
+import BienMateriel from '../models/possessions/BienMateriel.js';
+import Personne from '../models/Personne.js';
 
 const dataPath = "public/data/original-data.json";
 const defautPossesseur = new Personne("Anonymous");

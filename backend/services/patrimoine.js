@@ -1,4 +1,4 @@
-import Patrimoine from "../../models/Patrimoine.js";
+import Patrimoine from "../models/Patrimoine.js";
 import {getPossessionsList} from "./possession.js";
 
 

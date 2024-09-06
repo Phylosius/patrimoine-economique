@@ -1,9 +1,9 @@
 import {getPossession, savePossession, updatePossession} from "../services/possession.js";
-import Possession from "../../models/possessions/Possession.js";
-import Flux from "../../models/possessions/Flux.js";
-import Personne from "../../models/Personne.js";
-import Argent from "../../models/possessions/Argent.js";
-import BienMateriel from "../../models/possessions/BienMateriel.js";
+import Possession from "../models/possessions/Possession.js";
+import Flux from "../models/possessions/Flux.js";
+import Personne from "../models/Personne.js";
+import Argent from "../models/possessions/Argent.js";
+import BienMateriel from "../models/possessions/BienMateriel.js";
 
 export function updatePossessionByRequest(req,res){
     const cibleLibelle = req.params.libelle;
